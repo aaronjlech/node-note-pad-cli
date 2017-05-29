@@ -1,6 +1,22 @@
+
+const fs = require('fs');
+
+let notes = [];
+try {
+   var notesStr = fs.readFileSync('notes-data.json');
+   notes = JSON.parse(notesStr);
+
+} catch (e) {
+
+};
 const addNote = (title, body) => {
-   console.log('addNote');
-   return "New Note";
+   let note = {
+      title,
+      body
+   };
+   notes.push(note)
+
+   fs.writeFileSync('notes-data.json', JSON.stringify(notes))
 };
 
 const getAll = () => {
