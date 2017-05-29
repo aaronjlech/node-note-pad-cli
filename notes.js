@@ -18,16 +18,26 @@ const saveNotes = (notes) => {
 
 const addNote = (title, body) => {
    let notes = fetchNotes();
-   let note = {
-      title,
-      body
-   };
-   notes.push(note)
-   saveNotes(notes);
+   duplicate = notes.filter(note => note.title === title);
+   if(duplicate.length === 0){
+      let note = {
+         title,
+         body
+      };
+      notes.push(note)
+      saveNotes(notes);
+      console.log('Note added')
+   } else {
+      console.log(`title: ${title} --- already taken`);
+   }
+
 };
 
 const getAll = () => {
    console.log('getting all notes');
+   fetchNotes().map(note => {
+      console.log(`TITLE: ${note.title}`, '----', `BODY: ${note.body}`);
+   })
 };
 
 const removeNote = (title) => {
@@ -37,7 +47,10 @@ const removeNote = (title) => {
    return notes.length !== filtered.length;
 };
 const readNote = (title) => {
-   console.log('reading note');
+   let notes = fetchNotes();
+   let filtered = notes.filter(note => note.title === title);
+   console.log(`TITLE: ${note.title}`, '----', `BODY: ${note.body}`);
+
 }
 
 module.exports = {
